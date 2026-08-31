@@ -4,6 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Discovery — Демо</title>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1FXQG7JL9G"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-1FXQG7JL9G');
+</script>
+
 <style>
 *{box-sizing:border-box}html{scroll-behavior:smooth}
 body{margin:0;background:#fffaf3;color:#17181d;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
@@ -92,10 +103,16 @@ header{height:68px;background:#fff;border-bottom:1px solid #eee6da;display:flex;
 
 <script>
 function track(name,params={}) {
-  if(typeof gtag==='function') gtag('event',name,params);
-  console.log('GA4:',name,params);
+  if (typeof gtag === 'function') {
+    gtag('event', name, params);
+  }
+  console.log('GA4:', name, params);
 }
-track('demo_open',{page_type:'demo',demo_version:'v3_vertical'});
+
+track('demo_open', {
+  page_type: 'demo',
+  demo_version: 'v4_ga4'
+});
 </script>
 </body>
 </html>
