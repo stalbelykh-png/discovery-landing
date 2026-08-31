@@ -1,1 +1,176 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Discovery — Демо</title><style>body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#17181d;background:#fffaf2}.top{height:72px;background:#fff;border-bottom:1px solid #eee8df;display:flex;justify-content:space-between;align-items:center;padding:0 5vw}.logo{font-size:21px;font-weight:750}.back{color:#e98200;font-weight:650;text-decoration:none}.wrap{max-width:1250px;margin:auto;padding:60px 5vw}.ey{color:#e98200;font-weight:700}.title{font-size:52px;letter-spacing:-.05em;margin:12px 0}.sub{color:#686b77;font-size:18px}.steps{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:45px}.item{background:#fff;border:1px solid #eee6d8;border-radius:20px;padding:22px;box-shadow:0 15px 40px #37280f12}.item img{width:100%;border-radius:12px;display:block;margin-bottom:18px}.item h2{margin:0 0 8px}.item p{color:#6e707a;line-height:1.5}.item a{color:#e98200;text-decoration:none;font-weight:650}@media(max-width:700px){.steps{grid-template-columns:1fr}.title{font-size:42px}}</style></head><body><header class="top"><div class="logo">◆ Discovery</div><a class="back" href="index.html" data-event="demo_back">← Вернуться</a></header><main class="wrap"><span class="ey">ИНТЕРАКТИВНОЕ ДЕМО</span><h1 class="title">Discovery в действии</h1><p class="sub">Четыре ключевых экрана продукта — от управления гипотезами до отчётности.</p><div class="steps"><div class="item"><img src="dashboard-mockup.png"><h2>1. Hypothesis Board</h2><p>Доска Discovery: статусы, владельцы, приоритеты и движение гипотез.</p><a href="#board" data-event="demo_board">Посмотреть экран →</a></div><div class="item"><img src="dashboard-mockup.png"><h2>2. Hypothesis Detail</h2><p>Карточка гипотезы: описание, метрики, эксперименты и результаты.</p><a href="#detail" data-event="demo_detail">Посмотреть экран →</a></div><div class="item"><img src="dashboard-mockup.png"><h2>3. Analytics</h2><p>Квартальная и годовая аналитика: подтверждение, отклонение и Lead Time.</p><a href="#analytics" data-event="demo_analytics">Посмотреть экран →</a></div><div class="item"><img src="dashboard-mockup.png"><h2>4. Reports</h2><p>Отчёты для руководителей: динамика Discovery и ключевые показатели.</p><a href="#reports" data-event="demo_reports">Посмотреть экран →</a></div></div></main><script>document.querySelectorAll("[data-event]").forEach(x=>x.addEventListener("click",()=>console.log("analytics_event",x.dataset.event)))</script></body></html>
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Discovery — Демо</title>
+
+  <!--
+    GA4:
+    1) Создай ресурс в Google Analytics.
+    2) Замени G-XXXXXXXXXX ниже на свой Measurement ID.
+    3) После публикации GitHub Pages события будут отправляться в GA4.
+  -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX', {
+      page_title: 'Discovery — Демо',
+      page_location: window.location.href
+    });
+
+    // Единая функция для учебных событий GA4.
+    function track(eventName, params = {}) {
+      if (typeof gtag === 'function') {
+        gtag('event', eventName, params);
+      }
+      console.log('GA4 event:', eventName, params);
+    }
+  </script>
+
+  <style>
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#17181d;background:#fffaf2}
+    .top{height:72px;background:#fff;border-bottom:1px solid #eee8df;display:flex;justify-content:space-between;align-items:center;padding:0 5vw;position:sticky;top:0;z-index:10}
+    .logo{font-size:21px;font-weight:750}
+    .back{color:#e98200;font-weight:650;text-decoration:none}
+    .wrap{max-width:1250px;margin:auto;padding:65px 5vw 90px}
+    .ey{color:#e98200;font-weight:750;font-size:13px;letter-spacing:.08em}
+    .title{font-size:clamp(42px,5vw,62px);letter-spacing:-.055em;line-height:1.02;margin:14px 0}
+    .sub{color:#686b77;font-size:18px;line-height:1.55;max-width:720px}
+    .steps{display:grid;grid-template-columns:repeat(2,1fr);gap:26px;margin-top:48px}
+    .item{background:#fff;border:1px solid #eee6d8;border-radius:20px;padding:22px;box-shadow:0 15px 40px rgba(55,40,15,.07);transition:.2s}
+    .item:hover{transform:translateY(-3px);box-shadow:0 20px 48px rgba(55,40,15,.11)}
+    .item img{width:100%;border-radius:13px;display:block;margin-bottom:20px;border:1px solid #eee9df}
+    .num{display:inline-block;background:#fff0d7;color:#e98200;border-radius:999px;padding:6px 10px;font-size:12px;font-weight:750;margin-bottom:10px}
+    .item h2{margin:0 0 8px;font-size:24px;letter-spacing:-.025em}
+    .item p{color:#6e707a;line-height:1.55;margin:0 0 18px}
+    .actions{display:flex;gap:10px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid #ff9d1c;border-radius:10px;padding:10px 15px;color:#e98200;background:#fff;font-weight:650;text-decoration:none;cursor:pointer}
+    .btn.primary{background:#ff9d1c;color:#fff}
+    .info{margin-top:55px;padding:28px;border-radius:18px;background:#fff1da;border:1px solid #ffe0a8}
+    .info h3{margin:0 0 8px}.info p{margin:0;color:#686b77;line-height:1.5}
+    .toast{position:fixed;right:22px;bottom:22px;background:#17181d;color:#fff;padding:13px 17px;border-radius:10px;font-size:13px;opacity:0;transform:translateY(10px);pointer-events:none;transition:.25s;z-index:20}
+    .toast.show{opacity:1;transform:translateY(0)}
+    footer{padding:30px 5vw;background:#fff;border-top:1px solid #eee8df;color:#777;font-size:13px;display:flex;justify-content:space-between}
+    @media(max-width:750px){.steps{grid-template-columns:1fr}.top{padding:0 20px}.wrap{padding-left:20px;padding-right:20px}.back{font-size:14px}footer{display:block}footer span{display:block;margin:5px 0}}
+  </style>
+</head>
+
+<body>
+<header class="top">
+  <div class="logo">◆ Discovery</div>
+  <a class="back" href="index.html"
+     onclick="track('demo_back_click',{from_page:'demo'});">← Вернуться на сайт</a>
+</header>
+
+<main class="wrap">
+  <span class="ey">ИНТЕРАКТИВНОЕ ДЕМО</span>
+  <h1 class="title">Discovery в действии</h1>
+  <p class="sub">
+    Четыре ключевых экрана продукта — от управления гипотезами
+    до аналитики и отчётности для руководителей.
+  </p>
+
+  <div class="steps">
+
+    <article class="item" id="board">
+      <span class="num">01 · DISCOVERY</span>
+      <img src="hypothesis-board.png" alt="Hypothesis Board">
+      <h2>Hypothesis Board</h2>
+      <p>Доска Discovery: статусы, владельцы, приоритеты и движение гипотез по этапам.</p>
+      <div class="actions">
+        <a class="btn primary" href="#detail"
+           onclick="track('demo_screen_view',{screen_name:'hypothesis_board',screen_position:1});">Следующий экран →</a>
+        <button class="btn" onclick="track('demo_interest',{screen_name:'hypothesis_board',action:'interest_click'});showToast('Событие отправлено: Board');">Изучить Board</button>
+      </div>
+    </article>
+
+    <article class="item" id="detail">
+      <span class="num">02 · HYPOTHESIS</span>
+      <img src="hypothesis-detail.png" alt="Hypothesis Detail">
+      <h2>Hypothesis Detail</h2>
+      <p>Карточка гипотезы: описание, метрики, эксперименты, результаты и принятое решение.</p>
+      <div class="actions">
+        <a class="btn primary" href="#analytics"
+           onclick="track('demo_screen_view',{screen_name:'hypothesis_detail',screen_position:2});">Следующий экран →</a>
+        <button class="btn" onclick="track('demo_interest',{screen_name:'hypothesis_detail',action:'interest_click'});showToast('Событие отправлено: Detail');">Изучить Detail</button>
+      </div>
+    </article>
+
+    <article class="item" id="analytics">
+      <span class="num">03 · ANALYTICS</span>
+      <img src="analytics.png" alt="Analytics">
+      <h2>Analytics</h2>
+      <p>Квартальная и годовая аналитика: confirmation rate, rejection rate, validation rate и Discovery Lead Time.</p>
+      <div class="actions">
+        <a class="btn primary" href="#reports"
+           onclick="track('demo_screen_view',{screen_name:'analytics',screen_position:3});">Следующий экран →</a>
+        <button class="btn" onclick="track('demo_interest',{screen_name:'analytics',action:'interest_click'});showToast('Событие отправлено: Analytics');">Изучить Analytics</button>
+      </div>
+    </article>
+
+    <article class="item" id="reports">
+      <span class="num">04 · REPORTING</span>
+      <img src="reports.png" alt="Reports">
+      <h2>Reports</h2>
+      <p>Отчёты для руководителей: динамика Discovery, результаты проверок и ключевые показатели команды.</p>
+      <div class="actions">
+        <button class="btn primary"
+          onclick="track('demo_complete',{completed_screen:'reports',screens_viewed:4});showToast('Демо завершено — событие отправлено');">Завершить демо ✓</button>
+        <a class="btn" href="index.html"
+          onclick="track('demo_finish_back',{completed_screen:'reports'});">На главную</a>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="info">
+    <h3>Что здесь можно измерять в Google Analytics</h3>
+    <p>
+      В учебном проекте можно построить воронку:
+      Landing → Demo → Board → Detail → Analytics → Reports.
+      Так ты увидишь, где пользователи чаще всего прекращают просмотр.
+    </p>
+  </div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<footer>
+  <span>© 2026 Discovery</span>
+  <span>Учебный проект Product Discovery</span>
+</footer>
+
+<script>
+  // Фиксируем открытие страницы демо.
+  track('demo_open', {
+    page_type: 'demo',
+    demo_version: 'v2'
+  });
+
+  // Фиксируем клики по карточкам, если пользователь нажимает на сам экран.
+  document.querySelectorAll('.item img').forEach((img, index) => {
+    img.addEventListener('click', () => {
+      const names = ['hypothesis_board','hypothesis_detail','analytics','reports'];
+      track('demo_image_click', {
+        screen_name: names[index],
+        screen_position: index + 1
+      });
+      showToast('Клик по экрану: ' + names[index]);
+    });
+  });
+
+  function showToast(message){
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.classList.add('show');
+    clearTimeout(window.toastTimer);
+    window.toastTimer = setTimeout(()=>toast.classList.remove('show'),2200);
+  }
+</script>
+</body>
+</html>
