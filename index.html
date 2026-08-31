@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Discovery — Проверяйте идеи. Принимайте верные решения.</title>
+  <meta name="description" content="Платформа для управляемого Product Discovery. Проверяйте гипотезы и принимайте решения на основе фактов.">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #11142a;
+      background: #fff;
+    }
+    .nav {
+      height: 72px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw; border-bottom: 1px solid #eeeef5; position: sticky; top: 0;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(12px); z-index: 10;
+    }
+    .logo { font-size: 21px; font-weight: 750; display:flex; gap:10px; align-items:center; }
+    .logo-mark { width:25px; height:25px; border-radius:8px; background: linear-gradient(135deg,#6b5cff,#9b8cff); transform: rotate(-12deg); }
+    .nav-links { display:flex; gap:34px; font-size:14px; color:#35384d; }
+    .actions { display:flex; gap:12px; align-items:center; }
+    .btn { border:1px solid #ddddea; background:#fff; padding:12px 18px; border-radius:10px; font-weight:600; cursor:pointer; }
+    .btn.primary { color:#fff; border:0; background:linear-gradient(135deg,#6557ff,#7566ff); box-shadow:0 8px 25px rgba(101,87,255,.22); }
+    .hero { padding: 90px 5vw 70px; background: radial-gradient(circle at 75% 35%, #f0eeff 0, #fff 48%); }
+    .hero-grid { max-width:1400px; margin:auto; display:grid; grid-template-columns: 0.82fr 1.35fr; gap:60px; align-items:center; }
+    .eyebrow { display:inline-block; padding:8px 14px; border-radius:999px; background:#f1efff; color:#6557ff; font-size:13px; font-weight:650; }
+    h1 { font-size:clamp(48px,5.3vw,76px); line-height:1.02; letter-spacing:-.055em; margin:24px 0; }
+    h1 span { color:#6658ff; }
+    .lead { font-size:20px; line-height:1.55; color:#626579; max-width:580px; }
+    .hero-actions { display:flex; gap:12px; margin-top:32px; }
+    .mockup { width:100%; border-radius:20px; box-shadow:0 35px 80px rgba(35,28,90,.18); border:1px solid #eeeefa; }
+    section { padding:90px 5vw; }
+    .section-title { text-align:center; font-size:38px; letter-spacing:-.035em; margin:0 0 45px; }
+    .flow { max-width:1200px; margin:auto; display:grid; grid-template-columns:repeat(6,1fr); gap:12px; }
+    .card { border:1px solid #e9e9f2; border-radius:16px; padding:24px; background:#fff; }
+    .flow .card { min-height:160px; }
+    .icon { font-size:26px; margin-bottom:18px; }
+    .card h3 { margin:0 0 9px; font-size:17px; }
+    .card p { margin:0; color:#74778a; font-size:14px; line-height:1.5; }
+    .cta { text-align:center; background:#f7f6ff; }
+    .cta h2 { font-size:48px; letter-spacing:-.04em; margin:0 0 18px; }
+    .cta p { color:#6b6e80; font-size:18px; }
+    footer { padding:35px 5vw; color:#7a7c8d; font-size:13px; display:flex; justify-content:space-between; }
+    @media (max-width: 900px) {
+      .nav-links { display:none; }
+      .hero-grid { grid-template-columns:1fr; }
+      .flow { grid-template-columns:repeat(2,1fr); }
+    }
+    @media (max-width: 520px) {
+      .hero { padding-top:55px; }
+      h1 { font-size:48px; }
+      .flow { grid-template-columns:1fr; }
+      .actions .btn:first-child { display:none; }
+      .hero-actions { flex-direction:column; }
+      footer { flex-direction:column; gap:10px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="logo"><div class="logo-mark"></div>Discovery</div>
+    <nav class="nav-links">
+      <a>Возможности</a><a>Как это работает</a><a>Для команд</a><a>Цены</a><a>Ресурсы</a>
+    </nav>
+    <div class="actions"><button class="btn">Войти</button><button class="btn primary">Попробовать бесплатно</button></div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">Платформа для управляемого Discovery</div>
+          <h1>Проверяйте идеи.<br><span>Принимайте верные решения.</span></h1>
+          <p class="lead">Discovery помогает командам находить возможности, проверять гипотезы и двигаться к результату быстрее.</p>
+          <div class="hero-actions">
+            <button class="btn primary">Попробовать бесплатно →</button>
+            <button class="btn">Смотреть демо ▷</button>
+          </div>
+        </div>
+        <div><img class="mockup" src="dashboard-mockup.png" alt="Интерфейс Discovery"></div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Весь цикл Discovery в одной платформе</h2>
+      <div class="flow">
+        <div class="card"><div class="icon">💡</div><h3>Идея</h3><p>Фиксируйте идеи из любых источников.</p></div>
+        <div class="card"><div class="icon">▣</div><h3>Гипотеза</h3><p>Формулируйте гипотезы и определяйте метрики.</p></div>
+        <div class="card"><div class="icon">⌕</div><h3>Discovery</h3><p>Исследуйте проблему и проверяйте гипотезу.</p></div>
+        <div class="card"><div class="icon">⚗</div><h3>Тестирование</h3><p>Проводите эксперименты и собирайте данные.</p></div>
+        <div class="card"><div class="icon">✓</div><h3>Решение</h3><p>Принимайте решения на основе фактов.</p></div>
+        <div class="card"><div class="icon">↗</div><h3>Delivery</h3><p>Передавайте в разработку лучшие решения.</p></div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <h2>Меньше догадок. Больше доказательств.</h2>
+      <p>Сделайте Discovery прозрачным для команды и бизнеса.</p>
+      <button class="btn primary">Начать бесплатно →</button>
+    </section>
+  </main>
+
+  <footer><span>© 2026 Discovery</span><span>Учебный проект Product Discovery</span></footer>
+</body>
+</html>
