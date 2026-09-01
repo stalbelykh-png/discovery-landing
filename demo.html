@@ -68,7 +68,10 @@ header{height:68px;background:#fff;border-bottom:1px solid #eee6da;display:flex;
       <div><div class="number">1</div><div class="label">DISCOVERY</div><h2>Hypothesis Board</h2><p>Центральная доска для всех гипотез вашей команды.</p><ul class="features"><li>Kanban по статусам</li><li>Фильтры и поиск</li><li>Оценка ICE</li><li>Совместная работа</li></ul></div>
       <div class="shot"><img src="hypothesis-board.png" alt="Hypothesis Board" onclick="track('demo_image_click',{screen:'board'})"></div>
     </div>
-    <div class="actions"><a class="next" href="#detail" onclick="track('demo_screen_view',{screen_name:'hypothesis_detail',position:2})">Следующий экран →</a></div>
+    <div class="actions"><a class="next" href="#detail" onclick="track('demo_screen_view',{
+  screen_name:'detail',
+  screen_number:2
+})">Следующий экран →</a></div>
   </section>
 
   <section class="screen" id="detail">
@@ -76,7 +79,10 @@ header{height:68px;background:#fff;border-bottom:1px solid #eee6da;display:flex;
       <div><div class="number">2</div><div class="label">HYPOTHESIS</div><h2>Hypothesis Detail</h2><p>Вся информация о гипотезе, экспериментах, данных и решениях в одном месте.</p><ul class="features"><li>Описание и ожидаемый результат</li><li>Параметры ICE</li><li>Эксперименты и данные</li><li>Комментарии и файлы</li></ul></div>
       <div class="shot"><img src="hypothesis-detail.png" alt="Hypothesis Detail" onclick="track('demo_image_click',{screen:'detail'})"></div>
     </div>
-    <div class="actions"><a class="next" href="#analytics" onclick="track('demo_screen_view',{screen_name:'analytics',position:3})">Следующий экран →</a></div>
+    <div class="actions"><a class="next" href="#analytics" onclick="track('demo_screen_view',{
+  screen_name:'analytics',
+  screen_number:3
+})">Следующий экран →</a></div>
   </section>
 
   <section class="screen" id="analytics">
@@ -84,7 +90,10 @@ header{height:68px;background:#fff;border-bottom:1px solid #eee6da;display:flex;
       <div><div class="number">3</div><div class="label">ANALYTICS</div><h2>Analytics</h2><p>Отслеживайте ключевые метрики, динамику гипотез и эффективность процесса Discovery.</p><ul class="features"><li>Ключевые показатели</li><li>Динамика по статусам</li><li>Среднее время Discovery</li><li>Аналитика по командам</li></ul></div>
       <div class="shot"><img src="analytics.png" alt="Analytics" onclick="track('demo_image_click',{screen:'analytics'})"></div>
     </div>
-    <div class="actions"><a class="next" href="#reports" onclick="track('demo_screen_view',{screen_name:'reports',position:4})">Следующий экран →</a></div>
+    <div class="actions"><a class="next" href="#reports" onclick="track('demo_screen_view',{
+  screen_name:'reports',
+  screen_number:4
+})">Следующий экран →</a></div>
   </section>
 
   <section class="screen" id="reports">
@@ -112,6 +121,10 @@ function track(name,params={}) {
 track('demo_open', {
   page_type: 'demo',
   demo_version: 'v4_ga4'
+});
+  track('demo_screen_view',{
+  screen_name:'board',
+  screen_number:1
 });
 </script>
 </body>
