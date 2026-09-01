@@ -1,22 +1,590 @@
-<!doctype html><html lang="ru"><head>
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Discovery — Product Discovery Platform</title>
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-1FXQG7JL9G"></script>
+  <!-- Google Analytics 4: сохраняем твой Measurement ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1FXQG7JL9G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    const debugMode = new URLSearchParams(location.search).get('debug') === '1';
+
+    gtag('config', 'G-1FXQG7JL9G', {
+      debug_mode: debugMode,
+      content_group: 'discovery_landing'
+    });
+
+    // Универсальная функция для учебных GA4-событий.
+    function track(name, params = {}) {
+      gtag('event', name, {
+        ...params,
+        page_type: 'landing',
+        content_group: 'discovery_landing'
+      });
+    }
+  </script>
+
+  <style>
+    :root{
+      --orange:#ff9d1c;
+      --orange-dark:#e98200;
+      --orange-soft:#fff2dd;
+      --ink:#17181d;
+      --muted:#70737c;
+      --line:#ebe7df;
+      --bg:#fff;
+      --soft:#fffaf3;
+      --green:#178a55;
+      --red:#c94d4d;
+      --shadow:0 20px 60px rgba(47,34,16,.10);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:#fff}
+    a{text-decoration:none;color:inherit}
+    button,input,textarea,select{font:inherit}
+    button{cursor:pointer}
+    .nav{
+      height:74px;display:flex;align-items:center;justify-content:space-between;
+      padding:0 5vw;border-bottom:1px solid var(--line);position:sticky;top:0;
+      background:rgba(255,255,255,.94);backdrop-filter:blur(12px);z-index:20
+    }
+    .logo{font-size:22px;font-weight:800}
+    .navlinks{display:flex;gap:25px;font-size:14px;color:#444}
+    .navlinks a:hover{color:var(--orange-dark)}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      padding:12px 19px;border:1px solid #f0a13a;border-radius:11px;
+      color:var(--orange-dark);font-weight:700;background:#fff;transition:.2s
+    }
+    .btn:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(255,157,28,.18)}
+    .primary{background:var(--orange);color:#fff;box-shadow:0 10px 28px rgba(255,157,28,.28)}
+    .hero{
+      padding:78px 5vw 70px;
+      background:radial-gradient(circle at 75% 20%,#fff0d4,#fff 48%);
+    }
+    .hero-grid{max-width:1450px;margin:auto;display:grid;grid-template-columns:.78fr 1.22fr;gap:55px;align-items:center}
+    .eyebrow{display:inline-block;padding:8px 13px;border-radius:999px;background:var(--orange-soft);color:var(--orange-dark);font-size:13px;font-weight:700}
+    h1{font-size:clamp(48px,5.2vw,76px);line-height:1.02;letter-spacing:-.055em;margin:22px 0}
+    h1 span{color:#f28b08}
+    .lead{font-size:20px;line-height:1.55;color:#666;max-width:600px}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+    .mockup{width:100%;border-radius:20px;box-shadow:0 35px 80px rgba(73,48,16,.17)}
+    section{padding:82px 5vw}
+    .container{max-width:1250px;margin:auto}
+    .title{text-align:center;font-size:38px;letter-spacing:-.04em;margin:0 0 15px}
+    .subtitle{text-align:center;color:var(--muted);max-width:720px;margin:0 auto 42px;line-height:1.6}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:30px}
+    .stat{border:1px solid var(--line);border-radius:16px;padding:22px;background:#fff}
+    .stat-label{font-size:13px;color:var(--muted)}
+    .stat-value{font-size:31px;font-weight:800;margin:7px 0}
+    .stat-delta{font-size:12px;color:var(--green)}
+    .flow{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+    .card,.feature,.screen,.lab-card,.price-card,.faq-item{
+      border:1px solid var(--line);border-radius:17px;background:#fff
+    }
+    .card{min-height:175px;padding:22px;transition:.2s}
+    .card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+    .icon{font-size:26px;color:var(--orange)}
+    .card h3,.feature h3{margin:14px 0 8px}
+    .card p,.feature p,.screen p,.lab-card p,.price-card p{color:var(--muted);font-size:14px;line-height:1.55}
+    .features-wrap{background:var(--soft)}
+    .features{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .feature{padding:24px}
+    .feature button{
+      border:0;background:none;padding:0;color:var(--orange-dark);font-weight:700;margin-top:8px
+    }
+    .feature-more{display:none;margin-top:10px;color:#5e6169;font-size:13px;line-height:1.5}
+    .feature-more.open{display:block}
+    .screens{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .screen{padding:0;overflow:hidden}
+    .screen img{width:100%;display:block;aspect-ratio:1.35;object-fit:cover}
+    .screen div{padding:17px}
+    .screen h3{margin:0 0 6px;font-size:16px}
+    .screen button{margin-top:8px}
+    .lab{background:#18191e;color:#fff}
+    .lab .title{color:#fff}
+    .lab .subtitle{color:#bfc1c8}
+    .lab-layout{display:grid;grid-template-columns:250px 1fr;gap:18px}
+    .lab-menu{display:flex;flex-direction:column;gap:8px}
+    .lab-tab{
+      text-align:left;padding:13px 15px;border:1px solid #36383f;border-radius:10px;
+      background:#23252a;color:#c8cad0
+    }
+    .lab-tab.active{background:var(--orange);border-color:var(--orange);color:#fff}
+    .lab-panel{border:1px solid #36383f;background:#22242a;border-radius:16px;padding:24px;min-height:310px}
+    .lab-panel h3{margin-top:0}
+    .mini-chart{height:150px;display:flex;align-items:end;gap:10px;padding:18px 0}
+    .bar{flex:1;background:#ff9d1c;border-radius:6px 6px 0 0;min-height:15px;opacity:.9}
+    .event-table{width:100%;border-collapse:collapse;font-size:13px}
+    .event-table th,.event-table td{text-align:left;padding:10px;border-bottom:1px solid #393b42}
+    .event-pill{display:inline-block;padding:4px 8px;border-radius:999px;background:#34363d;color:#ffbe64}
+    .board-controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+    .filter{
+      padding:9px 13px;border:1px solid var(--line);background:#fff;border-radius:999px;
+      font-size:13px
+    }
+    .filter.active{background:var(--ink);color:#fff}
+    .hypotheses{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .hypothesis{padding:19px;border:1px solid var(--line);border-radius:15px;background:#fff}
+    .badge{display:inline-block;font-size:11px;padding:5px 8px;border-radius:999px;background:var(--orange-soft);color:var(--orange-dark);font-weight:700}
+    .hypothesis h3{font-size:16px;margin:12px 0 7px}
+    .hypothesis p{font-size:13px;color:var(--muted);line-height:1.5}
+    .hypothesis .metric{font-size:12px;font-weight:700}
+    .pricing{background:#fafafa}
+    .prices{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:950px;margin:auto}
+    .price-card{padding:28px}
+    .price-card.featured{border:2px solid var(--orange);box-shadow:var(--shadow)}
+    .price{font-size:38px;font-weight:800;margin:15px 0}
+    .price small{font-size:13px;color:var(--muted);font-weight:500}
+    .price-list{padding:0;margin:20px 0;list-style:none}
+    .price-list li{padding:8px 0;color:#62656d;font-size:13px;border-bottom:1px solid #f0ede8}
+    .faq{max-width:850px;margin:auto}
+    .faq-item{margin-bottom:10px;overflow:hidden}
+    .faq-q{width:100%;border:0;background:#fff;padding:18px 20px;text-align:left;font-weight:750;display:flex;justify-content:space-between}
+    .faq-a{display:none;padding:0 20px 18px;color:var(--muted);font-size:14px;line-height:1.55}
+    .faq-a.open{display:block}
+    .cta{
+      background:linear-gradient(100deg,#ff9d1c,#ffc14b);display:flex;justify-content:space-between;
+      align-items:center;gap:30px
+    }
+    .cta h2{font-size:43px;letter-spacing:-.04em;margin:0 0 10px}
+    .form-section{background:#fffaf3}
+    .form-box{max-width:760px;margin:auto;background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px;box-shadow:var(--shadow)}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .field{display:flex;flex-direction:column;gap:7px}
+    .field.full{grid-column:1/-1}
+    .field label{font-size:12px;font-weight:700;color:#555}
+    .field input,.field textarea,.field select{
+      width:100%;border:1px solid #ddd8d0;border-radius:10px;padding:12px;background:#fff;outline:none
+    }
+    .field input:focus,.field textarea:focus,.field select:focus{border-color:var(--orange)}
+    .success{display:none;padding:14px;border-radius:10px;background:#eaf8f1;color:#167448;margin-top:15px;font-size:13px}
+    .footer{padding:35px 5vw;display:flex;justify-content:space-between;color:#777;font-size:13px}
+    .toast{
+      position:fixed;right:20px;bottom:20px;background:#17181d;color:#fff;padding:12px 16px;
+      border-radius:10px;opacity:0;transform:translateY(10px);pointer-events:none;transition:.25s;z-index:50;font-size:13px
+    }
+    .toast.show{opacity:1;transform:translateY(0)}
+    @media(max-width:950px){
+      .navlinks{display:none}.hero-grid{grid-template-columns:1fr}.flow{grid-template-columns:repeat(3,1fr)}
+      .features,.screens{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}
+      .lab-layout{grid-template-columns:1fr}.hypotheses{grid-template-columns:1fr 1fr}.prices{grid-template-columns:1fr}
+      .cta{display:block}
+    }
+    @media(max-width:600px){
+      .flow,.features,.screens,.hypotheses,.stats{grid-template-columns:1fr}
+      h1{font-size:48px}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}
+      .cta h2{font-size:34px}.footer{display:block}.footer span{display:block;margin:7px 0}
+    }
+  </style>
+</head>
+
+<body>
+<header class="nav">
+  <div class="logo">◆ Discovery</div>
+  <nav class="navlinks">
+    <a href="#workflow" data-event="nav_click" data-label="workflow">Как это работает</a>
+    <a href="#features" data-event="nav_click" data-label="features">Возможности</a>
+    <a href="#lab" data-event="nav_click" data-label="analytics_lab">Analytics Lab</a>
+    <a href="#pricing" data-event="nav_click" data-label="pricing">Тарифы</a>
+  </nav>
+  <a class="btn" href="demo.html" data-event="demo_click" data-location="header">Посмотреть демо ▶</a>
+</header>
+
+<main>
+  <section class="hero" id="hero">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">Платформа для управляемого Discovery</span>
+        <h1>Проверяйте идеи.<br><span>Принимайте верные решения.</span></h1>
+        <p class="lead">Единая платформа для управления гипотезами и Discovery-процессом — от идеи до решения и передачи в разработку.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="demo.html" data-event="demo_click" data-location="hero">Посмотреть демо →</a>
+          <a class="btn" href="#analytics" data-event="cta_click" data-location="hero" data-cta="see_analytics">Изучить аналитику</a>
+        </div>
+        <div class="stats" aria-label="Пример продуктовых метрик">
+          <div class="stat"><div class="stat-label">Гипотез в работе</div><div class="stat-value">128</div><div class="stat-delta">+18% за квартал</div></div>
+          <div class="stat"><div class="stat-label">Подтверждено</div><div class="stat-value">42%</div><div class="stat-delta">+6 п.п.</div></div>
+          <div class="stat"><div class="stat-label">Discovery lead time</div><div class="stat-value">18 дн.</div><div class="stat-delta">−12% к прошлому кварталу</div></div>
+          <div class="stat"><div class="stat-label">Передано в Delivery</div><div class="stat-value">31</div><div class="stat-delta">+9% за квартал</div></div>
+        </div>
+      </div>
+      <img class="mockup" src="dashboard-mockup.png" alt="Discovery dashboard" loading="eager">
+    </div>
+  </section>
+
+  <section id="workflow">
+    <div class="container">
+      <h2 class="title">Весь цикл Discovery в одной платформе</h2>
+      <p class="subtitle">Каждый этап можно анализировать отдельно — это позволяет строить воронки, искать точки потерь и сравнивать сегменты.</p>
+      <div class="flow">
+        <button class="card" data-event="workflow_step" data-step="idea"><div class="icon">💡</div><h3>Идея</h3><p>Фиксируйте идеи из любых источников.</p></button>
+        <button class="card" data-event="workflow_step" data-step="hypothesis"><div class="icon">▣</div><h3>Гипотеза</h3><p>Формулируйте гипотезы и метрики.</p></button>
+        <button class="card" data-event="workflow_step" data-step="discovery"><div class="icon">⌕</div><h3>Discovery</h3><p>Исследуйте проблему и проверяйте гипотезу.</p></button>
+        <button class="card" data-event="workflow_step" data-step="experiment"><div class="icon">⚗</div><h3>Тестирование</h3><p>Проводите эксперименты и собирайте данные.</p></button>
+        <button class="card" data-event="workflow_step" data-step="decision"><div class="icon">✓</div><h3>Решение</h3><p>Принимайте решения на основе фактов.</p></button>
+        <button class="card" data-event="workflow_step" data-step="delivery"><div class="icon">↗</div><h3>Delivery</h3><p>Передавайте лучшие решения в разработку.</p></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="features-wrap" id="features">
+    <div class="container">
+      <h2 class="title">Почему команды выбирают Discovery</h2>
+      <p class="subtitle">Интерактивные карточки специально добавлены как учебные точки взаимодействия для GA4.</p>
+      <div class="features">
+        <article class="feature"><div class="icon">◎</div><h3>Фокус на важном</h3><p>Сосредоточьтесь на гипотезах, которые приносят результат.</p><button class="feature-toggle" data-feature="focus">Подробнее +</button><div class="feature-more" id="more-focus">Сравнивайте impact, confidence и effort и не перегружайте backlog.</div></article>
+        <article class="feature"><div class="icon">↗</div><h3>Прозрачность процесса</h3><p>Видите весь путь гипотезы от идеи до Delivery.</p><button class="feature-toggle" data-feature="transparency">Подробнее +</button><div class="feature-more" id="more-transparency">Статусы, владельцы, сроки и результаты находятся в одном контексте.</div></article>
+        <article class="feature"><div class="icon">◔</div><h3>Измеримый результат</h3><p>Анализируйте метрики и делайте выводы на основе данных.</p><button class="feature-toggle" data-feature="metrics">Подробнее +</button><div class="feature-more" id="more-metrics">Связывайте гипотезу с primary metric и guardrail metrics.</div></article>
+        <article class="feature"><div class="icon">◎</div><h3>Единый язык команды</h3><p>Общий контекст для бизнеса, продукта и разработки.</p><button class="feature-toggle" data-feature="team">Подробнее +</button><div class="feature-more" id="more-team">Одна модель Discovery помогает обсуждать outcome, а не только список задач.</div></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="analytics">
+    <div class="container">
+      <h2 class="title">Продуктовая аналитика Discovery</h2>
+      <p class="subtitle">Здесь собраны учебные показатели, которые можно связать с GA4 events и потом использовать в Explorations.</p>
+      <div class="stats">
+        <div class="stat"><div class="stat-label">Hypothesis volume</div><div class="stat-value">128</div><div class="stat-delta">↑ 18%</div></div>
+        <div class="stat"><div class="stat-label">Confirmation rate</div><div class="stat-value">42%</div><div class="stat-delta">↑ 6 п.п.</div></div>
+        <div class="stat"><div class="stat-label">Discovery lead time</div><div class="stat-value">18 дн.</div><div class="stat-delta">↓ 12%</div></div>
+        <div class="stat"><div class="stat-label">Delivery handoff</div><div class="stat-value">31</div><div class="stat-delta">↑ 9%</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lab" id="lab">
+    <div class="container">
+      <h2 class="title">Analytics Lab</h2>
+      <p class="subtitle">Нажимай на вкладки — каждое действие отправляется в GA4. Это даст тебе материал для Realtime, Events и Explorations.</p>
+      <div class="lab-layout">
+        <div class="lab-menu">
+          <button class="lab-tab active" data-tab="overview">Overview</button>
+          <button class="lab-tab" data-tab="events">Events</button>
+          <button class="lab-tab" data-tab="funnel">Funnel</button>
+          <button class="lab-tab" data-tab="segments">Segments</button>
+        </div>
+        <div class="lab-panel" id="lab-panel"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="board">
+    <div class="container">
+      <h2 class="title">Hypothesis Board</h2>
+      <p class="subtitle">Фильтры и карточки дают тебе события для анализа поведения пользователей.</p>
+      <div class="board-controls">
+        <button class="filter active" data-filter="all">Все</button>
+        <button class="filter" data-filter="discovery">Discovery</button>
+        <button class="filter" data-filter="experiment">Experiment</button>
+        <button class="filter" data-filter="delivery">Delivery</button>
+      </div>
+      <div class="hypotheses">
+        <article class="hypothesis" data-status="discovery"><span class="badge">Discovery</span><h3>Упростить onboarding</h3><p>Сократить путь до первого value event.</p><div class="metric">Target: Activation +15%</div></article>
+        <article class="hypothesis" data-status="experiment"><span class="badge">Experiment</span><h3>Новый формат hypothesis card</h3><p>Проверить влияние контекста на скорость принятия решения.</p><div class="metric">Target: Lead time −10%</div></article>
+        <article class="hypothesis" data-status="delivery"><span class="badge">Delivery</span><h3>Автоматический отчёт</h3><p>Снизить ручную работу Product Owner.</p><div class="metric">Target: −4 ч / нед.</div></article>
+        <article class="hypothesis" data-status="discovery"><span class="badge">Discovery</span><h3>Сегментация команд</h3><p>Проверить разные сценарии для B2B-команд.</p><div class="metric">Target: Retention +8%</div></article>
+        <article class="hypothesis" data-status="experiment"><span class="badge">Experiment</span><h3>Новая модель scoring</h3><p>Сравнить RICE и impact/effort.</p><div class="metric">Target: Confidence &gt; 70%</div></article>
+        <article class="hypothesis" data-status="delivery"><span class="badge">Delivery</span><h3>Slack-уведомления</h3><p>Сократить время реакции команды.</p><div class="metric">Target: SLA −20%</div></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="demo">
+    <div class="container">
+      <h2 class="title">Посмотрите Discovery в действии</h2>
+      <p class="subtitle">Нажми на карточки и открой демо — мы будем различать места взаимодействия в аналитике.</p>
+      <div class="screens">
+        <article class="screen"><img src="dashboard-mockup.png" alt="Hypothesis Board" loading="lazy"><div><h3>1. Hypothesis Board</h3><p>Доска Discovery и движение гипотез по этапам.</p><button class="btn" data-event="screen_click" data-screen="hypothesis_board">Изучить</button></div></article>
+        <article class="screen"><img src="dashboard-mockup.png" alt="Hypothesis Detail" loading="lazy"><div><h3>2. Hypothesis Detail</h3><p>Метрики, эксперименты, результаты и решение.</p><button class="btn" data-event="screen_click" data-screen="hypothesis_detail">Изучить</button></div></article>
+        <article class="screen"><img src="dashboard-mockup.png" alt="Analytics" loading="lazy"><div><h3>3. Analytics</h3><p>Квартальная и годовая аналитика Discovery.</p><button class="btn" data-event="screen_click" data-screen="analytics">Изучить</button></div></article>
+        <article class="screen"><img src="dashboard-mockup.png" alt="Reports" loading="lazy"><div><h3>4. Reports</h3><p>Отчёты для руководителей и команд.</p><button class="btn" data-event="screen_click" data-screen="reports">Изучить</button></div></article>
+      </div>
+      <div style="text-align:center;margin-top:28px">
+        <a class="btn primary" href="demo.html" data-event="demo_click" data-location="demo_section">Открыть полноценное демо →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <h2 class="title">Тарифы</h2>
+      <p class="subtitle">Учебный блок для изучения ecommerce-style и monetization событий без реальных платежей.</p>
+      <div class="prices">
+        <article class="price-card">
+          <h3>Starter</h3><p>Для небольшой команды.</p><div class="price">0 ₽ <small>/ мес.</small></div>
+          <ul class="price-list"><li>До 20 гипотез</li><li>Базовая аналитика</li><li>1 команда</li></ul>
+          <button class="btn price-cta" data-plan="starter">Выбрать Starter</button>
+        </article>
+        <article class="price-card featured">
+          <h3>Product</h3><p>Для полноценного Discovery.</p><div class="price">4 900 ₽ <small>/ мес.</small></div>
+          <ul class="price-list"><li>Неограниченные гипотезы</li><li>Эксперименты и метрики</li><li>Расширенные отчёты</li></ul>
+          <button class="btn primary price-cta" data-plan="product">Попробовать Product</button>
+        </article>
+        <article class="price-card">
+          <h3>Enterprise</h3><p>Для нескольких продуктовых команд.</p><div class="price">По запросу</div>
+          <ul class="price-list"><li>SSO и роли</li><li>Командные пространства</li><li>Интеграции</li></ul>
+          <button class="btn price-cta" data-plan="enterprise">Запросить условия</button>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="form-section" id="lead">
+    <div class="container">
+      <h2 class="title">Запросить демо</h2>
+      <p class="subtitle">Форма специально добавлена для тренировки form_start, generate_lead и анализа воронки.</p>
+      <div class="form-box">
+        <form id="demo-form">
+          <div class="form-grid">
+            <div class="field"><label for="name">Имя</label><input id="name" name="name" autocomplete="name" required></div>
+            <div class="field"><label for="email">Рабочий email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+            <div class="field"><label for="team">Размер команды</label><select id="team" name="team"><option value="1-5">1–5</option><option value="6-20">6–20</option><option value="21-100">21–100</option><option value="100+">100+</option></select></div>
+            <div class="field"><label for="role">Роль</label><select id="role" name="role"><option>Product Owner</option><option>Product Manager</option><option>Founder</option><option>Other</option></select></div>
+            <div class="field full"><label for="message">Что хотите проверить?</label><textarea id="message" name="message" rows="4" placeholder="Например: хотим сократить Discovery lead time"></textarea></div>
+            <div class="field full"><button class="btn primary" type="submit">Отправить запрос →</button></div>
+          </div>
+          <div class="success" id="form-success">Спасибо! Это учебная форма — реальная отправка на сервер не выполняется.</div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="container">
+      <h2 class="title">FAQ</h2>
+      <div class="faq">
+        <div class="faq-item"><button class="faq-q">Что такое Discovery?<span>+</span></button><div class="faq-a">Процесс поиска и проверки проблем, гипотез и решений до масштабной разработки.</div></div>
+        <div class="faq-item"><button class="faq-q">Какая метрика важнее всего?<span>+</span></button><div class="faq-a">Зависит от продукта. Обычно нужно связать North Star Metric с пользовательской ценностью и бизнес-результатом.</div></div>
+        <div class="faq-item"><button class="faq-q">Зачем нужны эксперименты?<span>+</span></button><div class="faq-a">Чтобы снизить неопределённость и проверить причинно-следственную связь между изменением и результатом.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div><h2>Меньше догадок.<br>Больше доказательств.</h2><p>Превращайте идеи в ценные решения вместе с Discovery.</p></div>
+    <a class="btn" href="#lead" data-event="cta_click" data-location="footer_cta" data-cta="request_demo">Запросить демо →</a>
+  </section>
+</main>
+
+<footer class="footer">
+  <span>© 2026 Discovery</span>
+  <span>Учебный проект Product Discovery · GA4 Learning Site</span>
+</footer>
+
+<div class="toast" id="toast"></div>
+
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  // ---------------------------
+  // GA4: автоматические учебные события
+  // ---------------------------
 
-  gtag('config', 'G-1FXQG7JL9G');
+  // CTA / navigation / buttons with data-event
+  document.querySelectorAll('[data-event]').forEach(el => {
+    el.addEventListener('click', () => {
+      const name = el.dataset.event;
+      const params = {};
+      Object.keys(el.dataset).forEach(key => {
+        if (key !== 'event') params[key] = el.dataset[key];
+      });
+      track(name, params);
+    });
+  });
+
+  // Scroll depth: 25/50/75/90%
+  const scrollMilestones = [25, 50, 75, 90];
+  const reached = new Set();
+
+  function checkScrollDepth() {
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    if (scrollable <= 0) return;
+    const percent = Math.round((window.scrollY / scrollable) * 100);
+    scrollMilestones.forEach(m => {
+      if (percent >= m && !reached.has(m)) {
+        reached.add(m);
+        track('scroll_depth', { percent_scrolled: m });
+      }
+    });
+  }
+  window.addEventListener('scroll', checkScrollDepth, {passive:true});
+
+  // Time milestones
+  [10, 30, 60].forEach(seconds => {
+    setTimeout(() => track('time_on_page', {seconds}), seconds * 1000);
+  });
+
+  // Outbound/demo link tracking
+  document.querySelectorAll('a[href^="http"], a[href$="demo.html"]').forEach(a => {
+    a.addEventListener('click', () => {
+      track('outbound_or_demo_click', {
+        link_url: a.href,
+        link_text: a.textContent.trim().slice(0, 80)
+      });
+    });
+  });
+
+  // Feature accordion
+  document.querySelectorAll('.feature-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const feature = btn.dataset.feature;
+      const target = document.getElementById('more-' + feature);
+      const isOpen = target.classList.toggle('open');
+      btn.textContent = isOpen ? 'Скрыть −' : 'Подробнее +';
+      track('feature_expand', {feature_name: feature, expanded: isOpen});
+    });
+  });
+
+  // Analytics Lab tabs
+  const labData = {
+    overview: `
+      <h3>Overview</h3>
+      <p>Пример dashboard: пользователи → engagement → key events.</p>
+      <div class="mini-chart">
+        <div class="bar" style="height:38%"></div><div class="bar" style="height:52%"></div>
+        <div class="bar" style="height:44%"></div><div class="bar" style="height:70%"></div>
+        <div class="bar" style="height:62%"></div><div class="bar" style="height:84%"></div>
+        <div class="bar" style="height:76%"></div>
+      </div>
+      <p><strong>Учебная гипотеза:</strong> рост engagement должен приводить к росту key event rate.</p>`,
+    events: `
+      <h3>Events</h3>
+      <p>События, которые мы отправляем в GA4 с этой страницы.</p>
+      <table class="event-table"><thead><tr><th>Event</th><th>Когда</th><th>Параметры</th></tr></thead>
+      <tbody>
+        <tr><td><span class="event-pill">cta_click</span></td><td>CTA</td><td>location, cta</td></tr>
+        <tr><td><span class="event-pill">workflow_step</span></td><td>этап workflow</td><td>step</td></tr>
+        <tr><td><span class="event-pill">feature_expand</span></td><td>карточка</td><td>feature_name, expanded</td></tr>
+        <tr><td><span class="event-pill">scroll_depth</span></td><td>scroll</td><td>percent_scrolled</td></tr>
+        <tr><td><span class="event-pill">generate_lead</span></td><td>форма</td><td>team_size, role</td></tr>
+      </tbody></table>`,
+    funnel: `
+      <h3>Funnel</h3>
+      <p>Такую воронку потом можно собрать в GA4 Explore → Funnel exploration.</p>
+      <div class="mini-chart">
+        <div class="bar" style="height:100%" title="Visit"></div><div class="bar" style="height:72%" title="CTA"></div>
+        <div class="bar" style="height:43%" title="Form start"></div><div class="bar" style="height:18%" title="Lead"></div>
+      </div>
+      <p><strong>Visit → CTA → Form start → Generate lead</strong></p>`,
+    segments: `
+      <h3>Segments</h3>
+      <p>Полезные сравнения для Discovery.</p>
+      <ul>
+        <li>Mobile vs Desktop</li>
+        <li>Organic vs Direct</li>
+        <li>New vs Returning</li>
+        <li>Users who clicked CTA vs users who did not</li>
+      </ul>
+      <p>В GA4 это можно анализировать через Comparisons и Explorations.</p>`
+  };
+
+  const labPanel = document.getElementById('lab-panel');
+  labPanel.innerHTML = labData.overview;
+
+  document.querySelectorAll('.lab-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.lab-tab').forEach(x => x.classList.remove('active'));
+      btn.classList.add('active');
+      const tab = btn.dataset.tab;
+      labPanel.innerHTML = labData[tab];
+      track('analytics_lab_tab', {tab_name: tab});
+    });
+  });
+
+  // Hypothesis board filters
+  document.querySelectorAll('.filter').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter').forEach(x => x.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.hypothesis').forEach(card => {
+        card.style.display = filter === 'all' || card.dataset.status === filter ? '' : 'none';
+      });
+      track('hypothesis_filter', {filter_name: filter});
+    });
+  });
+
+  // Hypothesis card clicks
+  document.querySelectorAll('.hypothesis').forEach(card => {
+    card.addEventListener('click', () => {
+      track('hypothesis_view', {
+        hypothesis_name: card.querySelector('h3').textContent.trim(),
+        hypothesis_status: card.dataset.status
+      });
+      showToast('Событие hypothesis_view отправлено в GA4');
+    });
+  });
+
+  // Pricing events
+  document.querySelectorAll('.price-cta').forEach(btn => {
+    btn.addEventListener('click', () => {
+      track('select_plan', {
+        plan_name: btn.dataset.plan
+      });
+      document.getElementById('lead').scrollIntoView({behavior:'smooth'});
+      showToast('План выбран — теперь можно анализировать select_plan');
+    });
+  });
+
+  // Form: start + generate_lead
+  let formStarted = false;
+  const form = document.getElementById('demo-form');
+
+  form.addEventListener('focusin', e => {
+    if (!formStarted) {
+      formStarted = true;
+      track('form_start', {form_name:'demo_request'});
+    }
+  });
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const teamSize = document.getElementById('team').value;
+    const role = document.getElementById('role').value;
+
+    track('generate_lead', {
+      form_name:'demo_request',
+      team_size:teamSize,
+      user_role:role,
+      value:1,
+      currency:'EUR'
+    });
+
+    document.getElementById('form-success').style.display = 'block';
+    showToast('generate_lead отправлен в GA4');
+    form.reset();
+    formStarted = false;
+  });
+
+  // FAQ
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const answer = btn.nextElementSibling;
+      const open = answer.classList.toggle('open');
+      btn.querySelector('span').textContent = open ? '−' : '+';
+      track('faq_toggle', {
+        question: btn.textContent.replace(/[+−]/g,'').trim(),
+        opened: open
+      });
+    });
+  });
+
+  function showToast(text) {
+    const toast = document.getElementById('toast');
+    toast.textContent = text;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2400);
+  }
+
+  // page_view уже отправляется автоматически через config.
+  // Для учебной проверки можно открыть:
+  // index.html?debug=1
 </script>
-
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Discovery</title><style>
-*{box-sizing:border-box}body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#17181d;background:#fff}a{text-decoration:none}.nav{height:74px;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;border-bottom:1px solid #eee8df;position:sticky;top:0;background:#fff;z-index:5}.logo{font-size:22px;font-weight:750}.navlinks{display:flex;gap:30px;font-size:14px;color:#333}.btn{display:inline-block;padding:12px 20px;border:1px solid #ff9d1c;border-radius:11px;color:#e98200;font-weight:650;background:#fff}.primary{background:#ff9d1c;color:#fff;box-shadow:0 10px 28px #ff9d1c33}.hero{padding:75px 5vw;background:radial-gradient(circle at 75% 30%,#fff1d8,#fff 48%)}.hero-grid{max-width:1450px;margin:auto;display:grid;grid-template-columns:.8fr 1.3fr;gap:55px;align-items:center}.eyebrow{display:inline-block;padding:8px 13px;border-radius:999px;background:#fff1da;color:#ed8b00;font-size:13px;font-weight:650}h1{font-size:clamp(48px,5.2vw,76px);line-height:1.02;letter-spacing:-.055em;margin:22px 0}h1 span{color:#f28b08}.lead{font-size:20px;line-height:1.55;color:#666;max-width:570px}.mockup{width:100%;border-radius:20px;box-shadow:0 35px 80px #4930102b}section{padding:85px 5vw}.title{text-align:center;font-size:38px;letter-spacing:-.04em;margin:0 0 42px}.flow,.features,.screens{max-width:1250px;margin:auto;display:grid;gap:16px}.flow{grid-template-columns:repeat(6,1fr)}.features{grid-template-columns:repeat(4,1fr)}.screens{grid-template-columns:repeat(4,1fr)}.card,.feature,.screen{border:1px solid #eee8df;border-radius:17px;background:#fff;padding:24px}.card{min-height:160px}.icon{font-size:27px;color:#f28b08}.card h3,.feature h3{margin:14px 0 8px}.card p,.feature p,.screen p{color:#737580;font-size:14px;line-height:1.5}.features-wrap{background:#fffaf2}.screen{padding:0;overflow:hidden}.screen img{width:100%;display:block;aspect-ratio:1.35;object-fit:cover}.screen div{padding:17px}.screen h3{margin:0 0 6px;font-size:16px}.cta{background:linear-gradient(100deg,#ff9d1c,#ffc14b);display:flex;justify-content:space-between;align-items:center}.cta h2{font-size:43px;letter-spacing:-.04em;margin:0 0 10px}.cta .btn{background:#fff}.center{text-align:center}.footer{padding:35px 5vw;display:flex;justify-content:space-between;color:#777;font-size:13px}@media(max-width:900px){.navlinks{display:none}.hero-grid{grid-template-columns:1fr}.flow{grid-template-columns:repeat(2,1fr)}.features,.screens{grid-template-columns:repeat(2,1fr)}.cta{display:block}}@media(max-width:550px){.flow,.features,.screens{grid-template-columns:1fr}h1{font-size:48px}}
-</style></head><body>
-<header class="nav"><div class="logo">◆ Discovery</div><nav class="navlinks"><a href="#features">Возможности</a><a href="#workflow">Как это работает</a><a href="#demo">Демо</a><a href="#teams">Для команд</a></nav><a class="btn" href="demo.html" data-event="demo_header">Посмотреть демо ▶</a></header>
-<section class="hero"><div class="hero-grid"><div><span class="eyebrow">Платформа для управляемого Discovery</span><h1>Проверяйте идеи.<br><span>Принимайте верные решения.</span></h1><p class="lead">Единая платформа для управления гипотезами и Discovery-процессом — от идеи до решения и передачи в разработку.</p><br><a class="btn primary" href="demo.html" data-event="demo_hero">Посмотреть демо ▶</a></div><img class="mockup" src="dashboard-mockup.png" alt="Discovery dashboard"></div></section>
-<section id="workflow"><h2 class="title">Весь цикл Discovery в одной платформе</h2><div class="flow"><div class="card"><div class="icon">💡</div><h3>Идея</h3><p>Фиксируйте идеи из любых источников.</p></div><div class="card"><div class="icon">▣</div><h3>Гипотеза</h3><p>Формулируйте гипотезы и метрики.</p></div><div class="card"><div class="icon">⌕</div><h3>Discovery</h3><p>Исследуйте проблему и проверяйте гипотезу.</p></div><div class="card"><div class="icon">⚗</div><h3>Тестирование</h3><p>Проводите эксперименты и собирайте данные.</p></div><div class="card"><div class="icon">✓</div><h3>Решение</h3><p>Принимайте решения на основе фактов.</p></div><div class="card"><div class="icon">↗</div><h3>Delivery</h3><p>Передавайте лучшие решения в разработку.</p></div></div></section>
-<section class="features-wrap" id="features"><h2 class="title">Почему команды выбирают Discovery</h2><div class="features"><div class="feature"><div class="icon">◎</div><h3>Фокус на важном</h3><p>Сосредоточьтесь на гипотезах, которые приносят результат.</p></div><div class="feature"><div class="icon">↗</div><h3>Прозрачность процесса</h3><p>Видите весь путь гипотезы от идеи до Delivery.</p></div><div class="feature"><div class="icon">◔</div><h3>Измеримый результат</h3><p>Анализируйте метрики и делайте выводы на основе данных.</p></div><div class="feature" id="teams"><div class="icon">◎</div><h3>Единый язык команды</h3><p>Общий контекст для бизнеса и продукта.</p></div></div></section>
-<section id="demo" class="center"><h2 class="title">Посмотрите Discovery в действии</h2><div class="screens"><div class="screen"><img src="dashboard-mockup.png"><div><h3>1. Hypothesis Board</h3><p>Доска Discovery и движение гипотез по этапам.</p></div></div><div class="screen"><img src="dashboard-mockup.png"><div><h3>2. Hypothesis Detail</h3><p>Метрики, эксперименты, результаты и решение.</p></div></div><div class="screen"><img src="dashboard-mockup.png"><div><h3>3. Analytics</h3><p>Квартальная и годовая аналитика Discovery.</p></div></div><div class="screen"><img src="dashboard-mockup.png"><div><h3>4. Reports</h3><p>Отчёты для руководителей и команд.</p></div></div></div><br><a class="btn primary" href="demo.html" data-event="demo_section">Открыть демо →</a></section>
-<section class="cta"><div><h2>Меньше догадок.<br>Больше доказательств.</h2><p>Превращайте идеи в ценные решения вместе с Discovery.</p></div><a class="btn" href="demo.html" data-event="demo_cta">Посмотреть демо →</a></section><footer class="footer"><span>© 2026 Discovery</span><span>Учебный проект Product Discovery</span></footer>
-<script>document.querySelectorAll("[data-event]").forEach(x=>x.addEventListener("click",()=>console.log("analytics_event",x.dataset.event)))</script></body></html>
+</body>
+</html>
