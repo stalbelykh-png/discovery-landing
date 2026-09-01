@@ -111,11 +111,18 @@ header{height:68px;background:#fff;border-bottom:1px solid #eee6da;display:flex;
 </main>
 
 <script>
-function track(name,params={}) {
+function track(name, params = {}) {
   if (typeof gtag === 'function') {
-    gtag('event', name, params);
+    gtag('event', name, {
+      ...params,
+      debug_mode: true
+    });
   }
-  console.log('GA4:', name, params);
+
+  console.log('GA4:', name, {
+    ...params,
+    debug_mode: true
+  });
 }
 
 track('demo_open', {
