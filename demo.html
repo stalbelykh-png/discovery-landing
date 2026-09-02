@@ -1,138 +1,38 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Discovery — Демо</title>
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-1FXQG7JL9G"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-1FXQG7JL9G');
-</script>
-
 <style>
-*{box-sizing:border-box}html{scroll-behavior:smooth}
-body{margin:0;background:#fffaf3;color:#17181d;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-header{height:68px;background:#fff;border-bottom:1px solid #eee6da;display:flex;align-items:center;justify-content:space-between;padding:0 4vw;position:sticky;top:0;z-index:20}
-.logo{font-weight:800;font-size:20px}.back{color:#e87500;text-decoration:none;font-weight:650}
-.hero{max-width:1200px;margin:auto;padding:58px 4vw 28px;display:flex;justify-content:space-between;gap:40px;align-items:end}
-.ey{font-size:12px;font-weight:800;letter-spacing:.09em;color:#eb7900}.hero h1{font-size:clamp(42px,5vw,68px);line-height:1;letter-spacing:-.055em;margin:12px 0}.hero p{max-width:620px;color:#6d6f78;font-size:17px;line-height:1.55}
-.how{background:#fff;border:1px solid #eee5d8;border-radius:16px;padding:18px 20px;min-width:270px;box-shadow:0 12px 35px #6b4a1610}.how b{display:block;margin-bottom:6px}.how span{color:#777;font-size:13px}
-.steps{max-width:1200px!important;width:100%!important;margin:0 auto!important;padding:0 4vw 70px!important;display:block!important}
-.progress{position:sticky;top:68px;z-index:15;background:#fffaf3;padding:12px 0}
-.progress-inner{display:flex;gap:8px;overflow:auto}.progress a{white-space:nowrap;text-decoration:none;color:#555;background:#fff;border:1px solid #eee2d3;border-radius:999px;padding:8px 13px;font-size:12px;font-weight:700}.progress a:hover{border-color:#ff9a1b;color:#e87500}
-.screen{display:block!important;width:100%!important;grid-column:1 / -1!important;scroll-margin-top:145px;background:#fff;border:1px solid #eee5d8;border-radius:22px;margin-top:22px;padding:26px;box-shadow:0 18px 55px #5b42150c}
-.screen-head{display:grid;grid-template-columns:270px 1fr;gap:30px;align-items:center;margin-bottom:20px}
-.number{display:inline-flex;width:32px;height:32px;border-radius:50%;align-items:center;justify-content:center;background:#ff8b0b;color:white;font-weight:800;margin-bottom:12px}
-.screen h2{font-size:27px;margin:0 0 5px;letter-spacing:-.03em}.screen .label{color:#e87500;font-size:13px;font-weight:700}.screen p{color:#70727b;line-height:1.5;margin:10px 0 0}
-.features{margin:16px 0 0;padding:0;list-style:none;color:#555;font-size:13px;line-height:2}.features li:before{content:"✓";color:#f07c00;font-weight:900;margin-right:8px}
-.shot{border:1px solid #e9e4dc;border-radius:15px;overflow:hidden;background:#f8f8f8}.shot img{display:block;width:100%;height:auto;cursor:zoom-in}
-.actions{display:flex;justify-content:flex-end;margin-top:18px}.next{display:inline-flex;text-decoration:none;background:#ff8508;color:#fff;padding:12px 20px;border-radius:9px;font-size:13px;font-weight:750;transition:.18s}.next:hover{transform:translateY(-2px);background:#ed7600}
-.finish{margin-top:24px;background:#fff1dc;border:1px solid #ffe0ad;border-radius:18px;padding:25px 28px;display:flex;justify-content:space-between;align-items:center;gap:20px}.finish h3{margin:0 0 5px}.finish p{margin:0;color:#777}
-.steps > .screen{display:block!important;width:100%!important}.steps > .finish{display:flex!important;width:100%!important}
-@media(max-width:800px){.hero{display:block}.how{margin-top:25px}.screen{padding:18px}.screen-head{grid-template-columns:1fr;gap:10px}.finish{display:block}.finish .next{margin-top:16px}}
+:root{--ink:#17130d;--muted:#756f64;--paper:#fffaf0;--cream:#fff3d5;--yellow:#ffb000;--orange:#f47f16;--line:rgba(23,19,13,.10)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+header{height:78px;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;position:sticky;top:0;z-index:30;background:rgba(255,250,240,.85);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.logo{font-weight:800;letter-spacing:-.04em}.logo span{color:var(--orange)}.back{font-size:13px;font-weight:700;color:#5b554c}
+.hero{padding:110px 5vw 80px;max-width:1280px;margin:auto;position:relative}.hero:after{content:"";position:absolute;width:480px;height:480px;right:-100px;top:10px;border-radius:50%;background:rgba(255,176,0,.22);filter:blur(80px);z-index:-1}
+.ey{font-size:11px;letter-spacing:.15em;font-weight:800;color:var(--orange)}h1{font-size:clamp(58px,8vw,112px);line-height:.9;letter-spacing:-.075em;margin:20px 0}.hero p{font-size:19px;line-height:1.55;color:var(--muted);max-width:620px}
+.progress{position:sticky;top:78px;z-index:20;padding:12px 5vw;background:rgba(255,250,240,.82);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.progress-inner{max-width:1280px;margin:auto;display:flex;gap:8px;overflow:auto}.progress a{white-space:nowrap;border:1px solid var(--line);border-radius:999px;padding:9px 14px;font-size:12px;font-weight:750;background:rgba(255,255,255,.65)}.progress a:hover{border-color:var(--orange);color:var(--orange)}
+.steps{max-width:1280px;margin:auto;padding:0 5vw 80px}
+.screen{padding:90px 0;border-bottom:1px solid var(--line);scroll-margin-top:135px}.screen-head{display:grid;grid-template-columns:310px 1fr;gap:60px;align-items:start}.number{font-size:12px;color:var(--orange);font-weight:850;letter-spacing:.1em}.label{font-size:11px;letter-spacing:.14em;font-weight:800;color:var(--muted);margin-top:45px}.screen h2{font-size:48px;letter-spacing:-.06em;line-height:.95;margin:12px 0 18px}.screen p{font-size:16px;line-height:1.55;color:var(--muted);margin:0}.features{list-style:none;padding:25px 0 0;margin:0;border-top:1px solid var(--line);font-size:13px;line-height:2;color:#5d574f}.features li:before{content:"—";color:var(--orange);margin-right:9px}.shot{border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:0 30px 80px rgba(70,43,5,.14);background:#fff}.shot img{display:block;width:100%;height:auto;cursor:zoom-in}.actions{display:flex;justify-content:flex-end;margin-top:22px}.next{display:inline-flex;padding:13px 19px;border-radius:999px;background:var(--ink);color:#fff;font-size:13px;font-weight:750}.next:hover{background:var(--orange)}
+.finish{margin:25px 0 0;padding:45px;background:linear-gradient(135deg,#ffb000,#f28a22);border-radius:25px;display:flex;justify-content:space-between;align-items:center;gap:30px}.finish h3{font-size:35px;letter-spacing:-.05em;margin:0 0 8px}.finish p{color:#3f2a12;margin:0}.finish .next{background:white;color:var(--ink)}
+@media(max-width:800px){.hero{padding-top:75px}.screen{padding:65px 0}.screen-head{grid-template-columns:1fr;gap:35px}.screen h2{font-size:40px}.finish{display:block}.finish .next{margin-top:22px}}
 </style>
 </head>
 <body>
-<header>
-  <div class="logo">◆ Discovery</div>
-  <a class="back" href="index.html" onclick="track('demo_back_click')">← Вернуться на главную</a>
-</header>
-
-<section class="hero">
-  <div>
-    <div class="ey">ИНТЕРАКТИВНОЕ ДЕМО</div>
-    <h1>Посмотрите Discovery<br>в действии</h1>
-    <p>Пройдите 4 ключевых экрана продукта и увидите, как команда управляет гипотезами, проверяет идеи и принимает решения на основе данных.</p>
-  </div>
-  <div class="how"><b>Как это работает</b><span>Нажимайте «Следующий экран», чтобы явно переходить к следующему шагу демо.</span></div>
-</section>
-
+<header><a class="logo" href="index.html">◆ <span>Discovery</span></a><a class="back" href="index.html" onclick="track('demo_back_click')">← На главную</a></header>
+<section class="hero"><div class="ey">INTERACTIVE DEMO · 04 SCREENS</div><h1>Discovery<br>в действии.</h1><p>Пройдите четыре ключевых экрана и увидите, как команда управляет гипотезами, экспериментами, аналитикой и решениями.</p></section>
+<nav class="progress"><div class="progress-inner">
+<a href="#board" onclick="track('demo_nav',{screen:'board'})">01 · Board</a><a href="#detail" onclick="track('demo_nav',{screen:'detail'})">02 · Detail</a><a href="#analytics" onclick="track('demo_nav',{screen:'analytics'})">03 · Analytics</a><a href="#reports" onclick="track('demo_nav',{screen:'reports'})">04 · Reports</a>
+</div></nav>
 <main class="steps">
-  <nav class="progress" aria-label="Навигация по демо">
-    <div class="progress-inner">
-      <a href="#board" onclick="track('demo_nav',{screen:'board'})">01 · Board</a>
-      <a href="#detail" onclick="track('demo_nav',{screen:'detail'})">02 · Detail</a>
-      <a href="#analytics" onclick="track('demo_nav',{screen:'analytics'})">03 · Analytics</a>
-      <a href="#reports" onclick="track('demo_nav',{screen:'reports'})">04 · Reports</a>
-    </div>
-  </nav>
-
-  <section class="screen" id="board">
-    <div class="screen-head">
-      <div><div class="number">1</div><div class="label">DISCOVERY</div><h2>Hypothesis Board</h2><p>Центральная доска для всех гипотез вашей команды.</p><ul class="features"><li>Kanban по статусам</li><li>Фильтры и поиск</li><li>Оценка ICE</li><li>Совместная работа</li></ul></div>
-      <div class="shot"><img src="hypothesis-board.png" alt="Hypothesis Board" onclick="track('demo_image_click',{screen:'board'})"></div>
-    </div>
-    <div class="actions"><a class="next" href="#detail" onclick="track('demo_screen_view',{
-  screen_name:'detail',
-  screen_number:2
-})">Следующий экран →</a></div>
-  </section>
-
-  <section class="screen" id="detail">
-    <div class="screen-head">
-      <div><div class="number">2</div><div class="label">HYPOTHESIS</div><h2>Hypothesis Detail</h2><p>Вся информация о гипотезе, экспериментах, данных и решениях в одном месте.</p><ul class="features"><li>Описание и ожидаемый результат</li><li>Параметры ICE</li><li>Эксперименты и данные</li><li>Комментарии и файлы</li></ul></div>
-      <div class="shot"><img src="hypothesis-detail.png" alt="Hypothesis Detail" onclick="track('demo_image_click',{screen:'detail'})"></div>
-    </div>
-    <div class="actions"><a class="next" href="#analytics" onclick="track('demo_screen_view',{
-  screen_name:'analytics',
-  screen_number:3
-})">Следующий экран →</a></div>
-  </section>
-
-  <section class="screen" id="analytics">
-    <div class="screen-head">
-      <div><div class="number">3</div><div class="label">ANALYTICS</div><h2>Analytics</h2><p>Отслеживайте ключевые метрики, динамику гипотез и эффективность процесса Discovery.</p><ul class="features"><li>Ключевые показатели</li><li>Динамика по статусам</li><li>Среднее время Discovery</li><li>Аналитика по командам</li></ul></div>
-      <div class="shot"><img src="analytics.png" alt="Analytics" onclick="track('demo_image_click',{screen:'analytics'})"></div>
-    </div>
-    <div class="actions"><a class="next" href="#reports" onclick="track('demo_screen_view',{
-  screen_name:'reports',
-  screen_number:4
-})">Следующий экран →</a></div>
-  </section>
-
-  <section class="screen" id="reports">
-    <div class="screen-head">
-      <div><div class="number">4</div><div class="label">REPORTING</div><h2>Reports</h2><p>Готовые отчёты и дашборды для руководителей и команд.</p><ul class="features"><li>Статусы гипотез</li><li>Производительность команд</li><li>Время Discovery</li><li>Экспорт и расшаривание</li></ul></div>
-      <div class="shot"><img src="reports.png" alt="Reports" onclick="track('demo_image_click',{screen:'reports'})"></div>
-    </div>
-    <div class="actions"><a class="next" href="#finish" onclick="track('demo_complete',{screens_viewed:4})">Завершить демо ✓</a></div>
-  </section>
-
-  <section class="finish" id="finish">
-    <div><h3>Готовы попробовать Discovery?</h3><p>Учебный стенд для Product Discovery и продуктовой аналитики.</p></div>
-    <a class="next" href="index.html" onclick="track('demo_finish_back')">На главную →</a>
-  </section>
+<section class="screen" id="board"><div class="screen-head"><div><div class="number">01</div><div class="label">DISCOVERY</div><h2>Hypothesis Board</h2><p>Центральная доска для всех гипотез вашей команды.</p><ul class="features"><li>Kanban по статусам</li><li>Фильтры и поиск</li><li>Оценка ICE</li><li>Совместная работа</li></ul></div><div class="shot"><img src="hypothesis-board.png" alt="Hypothesis Board" onclick="track('demo_image_click',{screen:'board'})"></div></div><div class="actions"><a class="next" href="#detail" onclick="track('demo_screen_view',{screen_name:'detail',screen_number:2})">Следующий экран →</a></div></section>
+<section class="screen" id="detail"><div class="screen-head"><div><div class="number">02</div><div class="label">HYPOTHESIS</div><h2>Hypothesis Detail</h2><p>Вся информация о гипотезе, экспериментах, данных и решениях в одном месте.</p><ul class="features"><li>Описание и ожидаемый результат</li><li>Параметры ICE</li><li>Эксперименты и данные</li><li>Комментарии и файлы</li></ul></div><div class="shot"><img src="hypothesis-detail.png" alt="Hypothesis Detail" onclick="track('demo_image_click',{screen:'detail'})"></div></div><div class="actions"><a class="next" href="#analytics" onclick="track('demo_screen_view',{screen_name:'analytics',screen_number:3})">Следующий экран →</a></div></section>
+<section class="screen" id="analytics"><div class="screen-head"><div><div class="number">03</div><div class="label">ANALYTICS</div><h2>Analytics</h2><p>Отслеживайте ключевые метрики, динамику гипотез и эффективность процесса Discovery.</p><ul class="features"><li>Ключевые показатели</li><li>Динамика по статусам</li><li>Среднее время Discovery</li><li>Аналитика по командам</li></ul></div><div class="shot"><img src="analytics.png" alt="Analytics" onclick="track('demo_image_click',{screen:'analytics'})"></div></div><div class="actions"><a class="next" href="#reports" onclick="track('demo_screen_view',{screen_name:'reports',screen_number:4})">Следующий экран →</a></div></section>
+<section class="screen" id="reports"><div class="screen-head"><div><div class="number">04</div><div class="label">REPORTING</div><h2>Reports</h2><p>Готовые отчёты и дашборды для руководителей и команд.</p><ul class="features"><li>Статусы гипотез</li><li>Производительность команд</li><li>Время Discovery</li><li>Экспорт и расшаривание</li></ul></div><div class="shot"><img src="reports.png" alt="Reports" onclick="track('demo_image_click',{screen:'reports'})"></div></div><div class="actions"><a class="next" href="#finish" onclick="track('demo_complete',{screens_viewed:4})">Завершить демо ✓</a></div></section>
+<section class="finish" id="finish"><div><h3>Готовы попробовать?</h3><p>Учебный стенд для Product Discovery и продуктовой аналитики.</p></div><a class="next" href="index.html" onclick="track('demo_finish_back')">На главную →</a></section>
 </main>
-
 <script>
-function track(name, params = {}) {
-  if (typeof gtag === 'function') {
-    gtag('event', name, {
-      ...params,
-      debug_mode: true
-    });
-  }
-
-  console.log('GA4:', name, {
-    ...params,
-    debug_mode: true
-  });
-}
-
-track('demo_open', {
-  page_type: 'demo',
-  demo_version: 'v4_ga4'
-});
-  track('demo_screen_view',{
-  screen_name:'board',
-  screen_number:1
-});
+function track(name,params={}){if(typeof gtag==='function')gtag('event',name,{...params,debug_mode:true});console.log('GA4:',name,params)}
+track('demo_open',{page_type:'demo',demo_version:'premium_v1'});track('demo_screen_view',{screen_name:'board',screen_number:1});
 </script>
-</body>
-</html>
+</body></html>
